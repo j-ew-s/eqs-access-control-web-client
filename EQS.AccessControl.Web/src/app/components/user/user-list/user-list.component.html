@@ -1,3 +1,32 @@
-<p>
-  user-list works!
-</p>
+<h3><p>
+  <span>User</span>
+</p></h3>
+<div class="search-results"
+		    infiniteScroll
+		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Last Update</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users;">
+              <th scope="row">i</th>
+              <td>{{user.name}}</td>
+              <td>{{user.username}}</td>
+              <td>{{user.lastUpdate}}</td>
+              <td><a></a></td>
+              <td>click update modal</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    

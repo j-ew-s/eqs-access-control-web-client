@@ -7,17 +7,17 @@
           <i class="glyphicon glyphicon-home"></i> Home</a>
       </li>
       <li *ngIf="isVisible('Users')" [class.active]="usersActive" (click)="onClick()" >
-        <a routerLink="user-list" [class.active]="userActive">
+        <a routerLink="user" >
           <i class="glyphicon glyphicon-user"></i> Users</a>
       </li>
       <li *ngIf="isVisible('Roles')" [class.active]="rolesActive" (click)="onClick()">
-        <a href="#" >
+        <a  routerLink="role"  >
           <i class="glyphicon glyphicon-list-alt"></i> Roles</a>
       </li>
       <li [class.active]="loginActive" (click)="onClick()">
         <a *ngIf="!loginService.isTokenNotExpired()" 
         routerLink="login" 
-        [class.active]="loginActive">
+       >
           <i class="fa fa-dashboard fa-lg"></i> Login
         </a>
         <a *ngIf="loginService.isTokenNotExpired()" 
