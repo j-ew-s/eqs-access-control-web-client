@@ -1,5 +1,8 @@
+import { HttpModule } from '@angular/http';
+import { routing } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { HomeModule } from './components/home/home.module';
 import { LeftSideMenuModule } from './components/left-side-menu/left-side-menu.module';
@@ -10,21 +13,22 @@ import { UserModule } from './components/user/user.module';
 import { AuthenticationService } from './service/authentication.service';
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HomeModule,
+    HttpClientModule,
+    HttpModule,
     LeftSideMenuModule,
     LoginModule, 
     RoleModule, 
-    UserModule
+    routing,
+    UserModule,
   ],
   providers: [
     AuthenticationService
