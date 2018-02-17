@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(item) {
-    this.login.doLogin();
-     if (this.service.isTokenNotExpired())
+     this.login.doLogin();
+     if (this.login.isLogedIn())
        this.router.navigateByUrl('/home');
      else
        this.loginError = true;

@@ -2,19 +2,19 @@
   <div class="brand">CQS project</div>
   <div class="menu-list">
     <ul id="menu-content" class="menu-content">
-      <li>
-        <a routerLink="home" [class.active]="homeActive">
+      <li [class.active]="homeActive" (click)="onClick()">
+        <a routerLink="home" >
           <i class="glyphicon glyphicon-home"></i> Home</a>
       </li>
-      <li *ngIf="isVisible('Users')" >
+      <li *ngIf="isVisible('Users')" [class.active]="usersActive" (click)="onClick()" >
         <a routerLink="user-list" [class.active]="userActive">
           <i class="glyphicon glyphicon-user"></i> Users</a>
       </li>
-      <li *ngIf="isVisible('Roles')">
-        <a href="#" [class.active]="rolesActive">
+      <li *ngIf="isVisible('Roles')" [class.active]="rolesActive" (click)="onClick()">
+        <a href="#" >
           <i class="glyphicon glyphicon-list-alt"></i> Roles</a>
       </li>
-      <li>
+      <li [class.active]="loginActive" (click)="onClick()">
         <a *ngIf="!loginService.isTokenNotExpired()" 
         routerLink="login" 
         [class.active]="loginActive">

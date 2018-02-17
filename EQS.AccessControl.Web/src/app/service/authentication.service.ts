@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiUrls } from './../shared/constants/api';
+import { TokenEnum } from './../shared/enum/tokenEnum';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -16,12 +18,8 @@ export class AuthenticationService {
   }
   
     login(credentials): Observable<any[]> {
-      return this.http.post(this.apis.login_url, 
-        {
-          "username": credentials.username,
-          "password": credentials.password
-        }
-      ).map(result => 
+      return this.http.post(this.apis.login_url, credentials)
+      .map(result => 
         result.json()
       );
     }
@@ -49,11 +47,9 @@ export class AuthenticationService {
   
     getCurrentUserRoles(){
       let token = localStorage.getItem('token');
-  
       if(!token) return false;
-  
       let jwt = new JwtHelper().decodeToken(token);
-      return jwt.role;
+      return jwt[TokenEnum.role];
     }
 
 }

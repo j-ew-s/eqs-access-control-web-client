@@ -13,22 +13,27 @@ export class LeftSideMenuComponent {
   rolesActive : boolean;
   userActive : boolean;
   homeActive : boolean;
-  logoutActive : boolean;
+  loginActive : boolean;
 
   constructor(private loginService: AuthenticationService,private _router : Router) {
     this.areaPermissions = [
-      { 'area': 'Home', 'permissions': ["admin", "rh", "developer"] },
-      { 'area': 'Users', 'permissions': ["admin", "rh"] },
-      { 'area': 'Roles', 'permissions': ["admin", "rh"] }
+      { 'area': 'Users', 'permissions': ["Admin", "RH"] },
+      { 'area': 'Roles', 'permissions': ["Admin", "RH"] }
     ];
-
+    this.setMenuactive();
   }
 
   onClick(){
-     this._router.isActive('roles',this.rolesActive);
-     this._router.isActive('user',this.userActive);
-     this._router.isActive('home',this.homeActive);
-     this._router.isActive('logout',this.logoutActive);
+    this.setMenuactive();
+  }
+
+  setMenuactive(){
+    this.rolesActive =  this._router.isActive('role',this.rolesActive);
+    this.rolesActive =  this._router.isActive('role-list',this.rolesActive);
+    this.userActive  =  this._router.isActive('user',this.userActive);
+    this.userActive  =  this._router.isActive('user-list',this.userActive);
+    this.homeActive  =  this._router.isActive('home',this.homeActive);
+    this.loginActive =  this._router.isActive('login',this.loginActive);
   }
 
   isVisible(area: string) {

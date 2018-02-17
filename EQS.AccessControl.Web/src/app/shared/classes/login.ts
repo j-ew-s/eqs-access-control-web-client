@@ -12,13 +12,12 @@ export class Login {
 
     doLogin() {
         this.service.login(this).subscribe(r => {
-
+            debugger;
             let result = r['payload'][0];
 
             if (result && result.token) {
                 this.saveToken(result.token);
             }
-
             this.service.getCurrentUser();
             this.service.getCurrentUserRoles();
         });
