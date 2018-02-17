@@ -1,3 +1,30 @@
-<p>
-  left-side-menu works!
-</p>
+<div class="nav-side-menu">
+  <div class="brand">CQS project</div>
+  <div class="menu-list">
+    <ul id="menu-content" class="menu-content">
+      <li>
+        <a routerLink="home" [class.active]="homeActive">
+          <i class="glyphicon glyphicon-home"></i> Home</a>
+      </li>
+      <li *ngIf="isVisible('Users')" >
+        <a routerLink="user-list" [class.active]="userActive">
+          <i class="glyphicon glyphicon-user"></i> Users</a>
+      </li>
+      <li *ngIf="isVisible('Roles')">
+        <a href="#" [class.active]="rolesActive">
+          <i class="glyphicon glyphicon-list-alt"></i> Roles</a>
+      </li>
+      <li>
+        <a *ngIf="!loginService.isTokenNotExpired()" 
+        routerLink="login" 
+        [class.active]="loginActive">
+          <i class="fa fa-dashboard fa-lg"></i> Login
+        </a>
+        <a *ngIf="loginService.isTokenNotExpired()" 
+        (click)="loginService.removeFromLocalStorage()">
+          <i class="glyphicon glyphicon-off"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
