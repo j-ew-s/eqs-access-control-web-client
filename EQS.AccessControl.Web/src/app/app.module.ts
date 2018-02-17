@@ -1,3 +1,4 @@
+import { RoleService } from './service/role.service';
 import { LeftSideMenuComponent } from './components/left-side-menu/left-side-menu.component';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
@@ -32,7 +33,8 @@ import { AppComponent } from './app.component';
     UserModule,
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService, 
+    RoleService
   ],
   bootstrap: [AppComponent]
 })

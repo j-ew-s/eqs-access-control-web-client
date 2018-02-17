@@ -29,9 +29,7 @@ export class LeftSideMenuComponent {
 
   setMenuactive(){
     this.rolesActive =  this._router.isActive('role',this.rolesActive);
-    this.rolesActive =  this._router.isActive('role-list',this.rolesActive);
     this.userActive  =  this._router.isActive('user',this.userActive);
-    this.userActive  =  this._router.isActive('user-list',this.userActive);
     this.homeActive  =  this._router.isActive('home',this.homeActive);
     this.loginActive =  this._router.isActive('login',this.loginActive);
   }

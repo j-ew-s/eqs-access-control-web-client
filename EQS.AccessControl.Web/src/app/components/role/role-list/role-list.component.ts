@@ -1,3 +1,5 @@
+import { Role } from './../../../shared/classes/role';
+import { RoleService } from './../../../service/role.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -5,11 +7,24 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css']
 })
-export class RoleListComponent implements OnInit {
+export class RoleListComponent {
 
-  constructor() { }
+  initial = 30;
+  listItems: any[] = [];
+  roles: Role[] =[];
 
-  ngOnInit() {
+  constructor(private roleService : RoleService) {
+    this.roleService.getAll().subscribe(result => {
+      let roles = result['payload'];
+      for(let role of roles){
+        debugger;
+        this.roles.push(new Role(role));
+      }
+    })
+  }
+  
+  onScroll() { 
+   
   }
 
 }
