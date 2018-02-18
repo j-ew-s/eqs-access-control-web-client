@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Role } from './../../../shared/classes/role';
 import { RoleService } from './../../../service/role.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,11 +14,12 @@ export class RoleListComponent {
   listItems: any[] = [];
   roles: Role[] =[];
 
-  constructor(private roleService : RoleService) {
+  constructor(private roleService : RoleService,
+    private router: Router) {
+
     this.roleService.getAll().subscribe(result => {
       let roles = result['payload'];
       for(let role of roles){
-        debugger;
         this.roles.push(new Role(role));
       }
     })
@@ -25,6 +27,11 @@ export class RoleListComponent {
   
   onScroll() { 
    
+  }
+
+  navigateToForm(roleId:number){
+    let route = "role/form/"+roleId.toString();
+    this.router.navigateByUrl(route);
   }
 
 }

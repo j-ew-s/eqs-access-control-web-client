@@ -16,8 +16,7 @@
       </li>
       <li [class.active]="loginActive" (click)="onClick()">
         <a *ngIf="!loginService.isTokenNotExpired()" 
-        routerLink="login" 
-       >
+        routerLink="login"  >
           <i class="fa fa-dashboard fa-lg"></i> Login
         </a>
         <a *ngIf="loginService.isTokenNotExpired()" 

@@ -17,10 +17,13 @@ export class RoleService {
   }
 
   getAll(): Observable<any[]> {
-    return this.http.get(this.apis.role_getAll)
-    .map(result => 
-      result.json()
-    );
+    return this.http.get(this.apis.role_get)
+    .map(result => result.json());
+  }
+
+  getById(roleId:number): Observable<any[]>{
+    return this.http.get(this.apis.role_get + roleId.toString())
+    .map(result => result.json());
   }
 
 }

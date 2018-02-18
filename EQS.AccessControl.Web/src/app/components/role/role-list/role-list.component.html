@@ -20,12 +20,22 @@
           </thead>
           <tbody>
             <tr *ngFor="let role of roles;">
-              <td>{{role.id}}</td>
-              <td>{{role.name}}</td>
-              <td><a>
-                  <i class="glyphicon glyphicon-pencil"></i></a></td>
-              <td><a>
-                  <i class="glyphicon glyphicon-trash"></i></a></td>
+              <td>
+                {{role.id}}
+              </td>
+              <td>
+                {{role.name}}
+              </td>
+              <td>
+                <a (click)="navigateToForm(role.id)" >
+                  <i class="glyphicon glyphicon-pencil" ></i>
+                </a>
+              </td>
+              <td>
+                <a>
+                  <i class="glyphicon glyphicon-trash"></i>
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>

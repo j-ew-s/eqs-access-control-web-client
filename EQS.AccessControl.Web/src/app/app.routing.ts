@@ -11,8 +11,8 @@ export const routing = RouterModule.forRoot([
                                                 {path : 'login', component: LoginComponent },
                                                 {path : 'home', component: HomeComponent },
                                                 {path : 'user', component: UserListComponent },
-                                                {path : 'user-form', component: UserFormComponent },
+                                                {path : 'user/form/:id', component: UserFormComponent },
                                                 {path : 'role', component: RoleListComponent },
-                                                {path : 'role-form', component: RoleFormComponent },
+                                                {path : 'role/form/:id', component: RoleFormComponent },
                                                 {path : '**',   component: HomeComponent}
                                             ]);

@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -13,7 +15,10 @@ import { RoleFormComponent } from './role-form/role-form.component';
   ],
   imports: [
     BrowserModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    CommonModule,
+    FormsModule, 
+    ReactiveFormsModule,
   ],
   providers: []
 })
