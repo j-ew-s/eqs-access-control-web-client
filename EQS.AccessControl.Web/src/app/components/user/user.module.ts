@@ -1,3 +1,4 @@
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +19,7 @@ import { UserFormComponent } from './user-form/user-form.component';
     CommonModule,
     FormsModule, 
     InfiniteScrollModule,
+    MultiselectDropdownModule,
     ReactiveFormsModule,
   ],
   providers: []

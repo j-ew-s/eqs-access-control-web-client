@@ -8,13 +8,13 @@ export class User extends BaseClass {
         super();
         this.id = obj["id"] != undefined ?  obj["id"] : -1 ;
         this.name =  obj["name"] != undefined ?  obj["name"] : "";
-        this.credential = obj["credential"] != undefined ? obj['credential'] : new Credential(new Object(0));
+        this.credential = obj["credential"] != undefined ? obj['credential'] : new Credential(new Object());
         this.roles = obj["roles"] != undefined ? this.getRoles(obj['roles']) : [];
 
         console.log("USEROBJ ", this);
     }
 
-    roles: Role[] = [];
+    roles: any[] = [];
     credential: Credential[] = [];
 
     getRoles(rolesObj: any[]): Role[] {

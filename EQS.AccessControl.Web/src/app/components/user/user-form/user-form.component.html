@@ -21,9 +21,14 @@
     </div>
 
     <div class="form-group">
-      <label for="passwordCofirm">confirm Password</label>
-      <input [(ngModel)]="user.credential.passwordCofirm" name="passwordCofirm" formControlName="passwordCofirm" type="text" class="form-control">
+      <label for="passwordConfirm">confirm Password</label>
+      <input name="passwordConfirm" formControlName="passwordConfirm" type="text" class="form-control">
     </div>
+
+    <ss-multiselect-dropdown [options]="options" [(ngModel)]="roles" 
+    (ngModelChange)="onChange($event)"
+    formControlName="roles"
+    ></ss-multiselect-dropdown>
 
     <div class="form-group">
       <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>

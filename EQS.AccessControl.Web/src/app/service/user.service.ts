@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getById(userId:number): Observable<any[]>{
-    return this.http.get(this.apis.register_base + userId.toString())
+    return this.http.get(this.apis.register_base + userId)
     .map(result => result.json());
   }
 

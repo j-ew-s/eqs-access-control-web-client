@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../../../shared/classes/user';
 import { UserService } from './../../../service/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,14 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private userService : UserService ) { }
+  constructor(private userService : UserService, private router : Router ) { }
 
-  ngOnInit() {
-   this.getUsers();
-  }
-  
   initial = 0;
   users : User[] = [];
+  
+  ngOnInit() {
+    this.getUsers();
+   }
   
   onScroll() { 
     // add another 20 items
@@ -30,6 +31,11 @@ export class UserListComponent implements OnInit {
         this.users.push(new User(user));
       }
     });
+  }
+
+  navigateToForm(user:number){
+    let route = "user/form/"+user.toString();
+    this.router.navigateByUrl(route);
   }
 
 }

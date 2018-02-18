@@ -1,91 +1,113 @@
+import { RoleService } from './../../../service/role.service';
+import { Role } from './../../../shared/classes/role';
 import { User } from './../../../shared/classes/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './../../../service/user.service';
-import { CredentialComponent } from './../../credential/credential.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+    selector: 'app-user-form',
+    templateUrl: './user-form.component.html',
+    styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
 
-  public isSaveMethod = false;
-  public form: FormGroup;
-  public user: User;
-  public userId: number;
-  public isLoading: boolean = false;
+    public isSaveMethod = false;
+    public form: FormGroup;
+    public user: User;
+    public userId: number;
+    public isLoading: boolean = false;
 
-  public messageStyle : string;
-  public message: string;
+    roles: number[];
+    options: IMultiSelectOption[];
 
-  @ViewChild(CredentialComponent) credentialView;
+    public messageStyle: string;
+    public message: string;
 
-  constructor(private _fb: FormBuilder, private service: UserService, private router: Router,
-      private route: ActivatedRoute) {
+    constructor(private _fb: FormBuilder,
+        private service: UserService,
+        private roleService: RoleService,
+        private router: Router,
+        private route: ActivatedRoute) {
 
-      this.form = this._fb.group({
-          name: ['', Validators.required],
-          username:    [''],
-          password:   [''],
-          passwordConfirm:  [''], 
-          credential: this._fb.array([])
-      });
+        this.form = this._fb.group({
+            name: ['', Validators.required],
+            username: [''],
+            password: [''],
+            passwordConfirm: [''],
+            roles: [''],
+        });
 
-      this.user = new User(new Object);
-  }
+        this.user = new User(new Object);
+    }
 
-  isFormDirty() {
-      return this.form.dirty;
-  }
+    isFormDirty() {
+        return this.form.dirty;
+    }
 
-  ngOnInit() {
-      this.userId = this.route.snapshot.params['id'];
-      if (this.userId !== undefined) {
-          this.isLoading = true;
-          this.service.getById(this.userId).subscribe(
-              s => {
-                  this.user = new User(s);
-                  this.isLoading = false;
-              }, e => {
-                  this.isLoading = false;
-              }
-          );
-      }
-  }
+    ngOnInit() {
+        this.userId = this.route.snapshot.params['id'];
+        this.roleService.getAll().subscribe(
+            s => {
+                let roles = s['payload'][0];
+                let optionRoles : any[] = [];
+                for (let role of roles) {
+                   optionRoles.push(new Role(role));
+                }
+                this.options = optionRoles;
+                this.loadUser();
+            }
+        );
+    }
 
-  sendMessage(success:boolean){
-      this.messageStyle = success ? 'success': 'error';
-      this.message = success ? 'Item saved!' : 'Ouch! An error happens during your action. Please get in touch with the Admin.'
-  }
+    loadUser(){
+        if (this.userId !== undefined && this.userId > 0) {
+            this.isLoading = true;
+            this.service.getById(this.userId).subscribe(
+                s => {
+                    let payload = s["payload"][0];
+                    this.user = new User(payload);
+                    this.roles = this.user.roles.map(function(item) {
+                        return item.id;
+                    });
+                    this.isLoading = false;
+                }, e => {
+                    this.isLoading = false;
+                }
+            );
+        }
+    }
 
-  onSubmit() {
-    /*  this.isSaveMethod = true;
-      if (this.item.id <= 0) {
-          this._service.postUser(this.item).subscribe(
-              s => {
-                  this.router.navigateByUrl('user'),
-                      console.log("created ", s),
-                      this.toastrService.success('Hello world!', 'Toastr fun!')                 
-              },
-              e => {
-                  console.log("error ", e)
-              }
-          );
-      }
-      else {
-          this._service.putUser(this.item).subscribe(
-              s => {
-                  this.router.navigateByUrl('user'),
-                      console.log("updated ", s),
-                      this.toastrService.success('Hello world!', 'Toastr fun!')
-              },
-              e => {
-                  console.log("error ", e)
-              }
-          );
-      }*/
-  }
+    onChange() {   
+        
+     }
+
+    onSubmit() {
+        debugger;
+        this.user.roles = this.roles;
+        console.log("USER saving ", this.user);
+
+          if (this.user.id <= 0) {
+              this.service.create(this.user).subscribe(
+                  s => {
+                      this.router.navigateByUrl('user')
+                  },
+                  e => {
+                      console.log("error ", e)
+                  }
+              );
+          }
+          else {
+              this.service.update(this.user).subscribe(
+                  s => {
+                      this.router.navigateByUrl('user')
+                  },
+                  e => {
+                      console.log("error ", e)
+                  }
+              );
+          }
+    }
 }
