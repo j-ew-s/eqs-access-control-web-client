@@ -15,7 +15,8 @@ export class LeftSideMenuComponent {
   homeActive : boolean;
   loginActive : boolean;
 
-  constructor(private loginService: AuthenticationService,private _router : Router) {
+  constructor(private loginService: AuthenticationService,
+    private router : Router) {
     this.areaPermissions = [
       { 'area': 'Users', 'permissions': ["Admin", "RH"] },
       { 'area': 'Roles', 'permissions': ["Admin", "RH"] }
@@ -28,10 +29,10 @@ export class LeftSideMenuComponent {
   }
 
   setMenuactive(){
-    this.rolesActive =  this._router.isActive('role',this.rolesActive);
-    this.userActive  =  this._router.isActive('user',this.userActive);
-    this.homeActive  =  this._router.isActive('home',this.homeActive);
-    this.loginActive =  this._router.isActive('login',this.loginActive);
+    this.rolesActive =  this.router.isActive('role',this.rolesActive);
+    this.userActive  =  this.router.isActive('user',this.userActive);
+    this.homeActive  =  this.router.isActive('home',this.homeActive);
+    this.loginActive =  this.router.isActive('login',this.loginActive);
   }
 
   isVisible(area: string) {
@@ -51,6 +52,11 @@ export class LeftSideMenuComponent {
        return true;
       }
     }
+  }
+
+  doLogout(){
+    this.loginService.removeFromLocalStorage();
+    this.router.navigateByUrl('/home');
   }
 
 }

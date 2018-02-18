@@ -1,3 +1,5 @@
+import { RoleService } from './../../service/role.service';
+import { Observable } from 'rxjs/Observable';
 import { BaseClass } from './base/baseClass';
 
 export class Role extends BaseClass {
@@ -5,10 +7,9 @@ export class Role extends BaseClass {
     /**
     *
     */
-    constructor(obj:Object) {
+    constructor(obj:Object, private service : RoleService) {
         super();
-        this.id =  obj[0]!= undefined ?  obj[0]["id"] : 1 ;
-        this.name = obj[0] != undefined ? obj[0]["name"] : "" ;
+        this.id = obj["id"] != undefined ?  obj["id"] : -1 ;
+        this.name =  obj["name"] != undefined ?  obj["name"] : "";
     }
-
 }    

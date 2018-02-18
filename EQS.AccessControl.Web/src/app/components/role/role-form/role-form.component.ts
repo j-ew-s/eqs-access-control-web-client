@@ -11,42 +11,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleFormComponent implements OnInit {
 
-  constructor(private route : ActivatedRoute,
-              private roleService : RoleService,
-              private formBuilder : FormBuilder) {
-                console.log(" ROLE FORM constructor");
-    this.role = new Role(new Object());
+  constructor(private route: ActivatedRoute,
+    private roleService: RoleService,
+    private formBuilder: FormBuilder,
+    private router: Router) {
+
+    console.log(" ROLE FORM constructor");
+    this.role = new Role(new Object(), this.roleService);
 
     this.form = this.formBuilder.group({
-      id : [''],
-      name : ['']
+      id: [''],
+      name: ['']
     })
   }
 
-  roleId : number = 0;
-  role : Role;
-  form : FormGroup;
+  roleId: number = 0;
+  role: Role;
+  form: FormGroup;
 
   ngOnInit() {
     debugger;
-    console.log(" ROLE FORM ONINIT");
     this.roleId = this.route.snapshot.params['id'];
-    console.log(" ROLE FORM ONINIT PARAM ",this.roleId );
-    if (this.roleId !== undefined) {
+    if (this.roleId !== undefined && this.roleId > -1) {
       this.roleService.getById(this.roleId).subscribe(
-          s => {
-              this.role = new Role(s);
-            // this.isLoading = false;
-          }, e => {
-            // this.isLoading = false;
-          }
+        s => {
+          let payload = s["payload"][0];
+          this.role = new Role(payload, this.roleService);
+        }, e => {
+          console.log("ERROR");
+        }
       );
     }
   }
 
-  onSubmit(){
-    console.log("Role ", this.role);
-    debugger;
+  onSubmit() {
+    if (this.role.id == -1)
+      this.create();
+    else
+      this.update();
+  }
+
+  create() {
+    this.roleService.create(this.role).subscribe(
+      s => {
+        console.log("Subscribe ", s);
+        this.router.navigateByUrl('/role');
+      },
+      e => {
+        console.log("Error ", e);
+      }
+    );
+  }
+
+  update() {
+    this.roleService.update(this.role).subscribe(
+      s => {
+        console.log("Subscribe ", s);
+        this.router.navigateByUrl('/role');
+      },
+      e => {
+        console.log("Error ", e);
+      }
+    );
   }
 
 }

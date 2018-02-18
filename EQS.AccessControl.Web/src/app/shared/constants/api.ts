@@ -6,7 +6,7 @@ export class ApiUrls{
     login_url:string = this.base_url + "login";
 
     /* ROLE APIS*/
-    role_get:string = this.base_url + "role/";
+    role_base:string = this.base_url + "role/";
 
     constructor() {
      

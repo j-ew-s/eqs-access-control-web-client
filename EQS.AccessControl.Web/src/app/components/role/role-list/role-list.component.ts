@@ -1,14 +1,14 @@
 import { Router } from '@angular/router';
 import { Role } from './../../../shared/classes/role';
 import { RoleService } from './../../../service/role.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css']
 })
-export class RoleListComponent {
+export class RoleListComponent implements OnChanges {
 
   initial = 30;
   listItems: any[] = [];
@@ -18,12 +18,14 @@ export class RoleListComponent {
     private router: Router) {
 
     this.roleService.getAll().subscribe(result => {
-      let roles = result['payload'];
+      let roles = result['payload'][0];
       for(let role of roles){
-        this.roles.push(new Role(role));
+        this.roles.push(new Role(role, this.roleService));
       }
     })
   }
+
+  ngOnChanges(){ }
   
   onScroll() { 
    

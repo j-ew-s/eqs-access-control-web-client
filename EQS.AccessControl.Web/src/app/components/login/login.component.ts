@@ -16,11 +16,13 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private service: AuthenticationService,
     private router: Router) {
+   
     this.form = this.formBuilder.group({
       username: [''],
       password: ['']
     });
-    this.login = new Login(new Object, service);
+
+    this.login = new Login(new Object);
   }
 
   form: FormGroup;
@@ -31,10 +33,16 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(item) {
-     this.login.doLogin();
-     if (this.login.isLogedIn())
-       this.router.navigateByUrl('/home');
-     else
-       this.loginError = true;
-   }
+    this.service.login(this.login).subscribe(
+      s => {
+        let result = s['payload'][0];
+        if (result && result.token) {
+          this.service.addToLocalStorage(result.token);
+          this.router.navigateByUrl('/home');
+        }
+      },
+      e => {
+        this.loginError = true;
+      });
+  }
 }
