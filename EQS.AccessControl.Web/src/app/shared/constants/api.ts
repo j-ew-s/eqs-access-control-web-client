@@ -1,14 +1,16 @@
-export class ApiUrls{
-    
-    base_url:string = "http://localhost:13000/api/";
+export class ApiUrls {
 
-    /* LOGIN APIS */
-    login_url:string = this.base_url + "login";
+    /* BASE */
+    base_url: string = "http://localhost:13000/api/";
 
-    /* ROLE APIS*/
-    role_base:string = this.base_url + "role/";
+    /* LOGIN API */
+    login_url: string = this.base_url + "login";
 
-    constructor() {
-     
-    }
+    /* ROLE API*/
+    role_base: string = this.base_url + "role/";
+
+    /* register API*/
+    register_base: string = this.base_url + "register/";
+
+    constructor() { }
 }

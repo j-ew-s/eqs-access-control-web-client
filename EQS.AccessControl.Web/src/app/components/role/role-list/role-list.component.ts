@@ -20,9 +20,9 @@ export class RoleListComponent implements OnChanges {
     this.roleService.getAll().subscribe(result => {
       let roles = result['payload'][0];
       for(let role of roles){
-        this.roles.push(new Role(role, this.roleService));
+        this.roles.push(new Role(role));
       }
-    })
+    });
   }
 
   ngOnChanges(){ }

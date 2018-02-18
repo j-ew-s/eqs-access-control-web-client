@@ -1,15 +1,12 @@
-import { RoleService } from './../../service/role.service';
-import { Observable } from 'rxjs/Observable';
 import { BaseClass } from './base/baseClass';
+import { AuthenticationService } from './../../service/authentication.service';
 
-export class Role extends BaseClass {
-    
-    /**
-    *
-    */
+export class Credential extends BaseClass {
+
     constructor(obj:Object) {
         super();
         this.id = obj["id"] != undefined ?  obj["id"] : -1 ;
         this.name =  obj["name"] != undefined ?  obj["name"] : "";
     }
-}    
+
+}

@@ -1,3 +1,5 @@
+import { User } from './../../../shared/classes/user';
+import { UserService } from './../../../service/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,26 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  users: any[] = [];
-  
+  constructor(private userService : UserService ) { }
+
   ngOnInit() {
+   this.getUsers();
   }
   
   initial = 0;
-  listItems: any[] = [];
-  
-  constructor() {
-    for (let i = 0; i < this.initial; i++) {
-      this.users.push({"name": "Name "+i, "username" : "username_"+i, "lastUpdate": "asas"});
-    }
-  }
+  users : User[] = [];
   
   onScroll() { 
     // add another 20 items
     this.initial += 20;
-    for (let i = 0; i < this.initial; i++) {
-      this.users.push({"name": "Name "+i, "username" : "username_"+i, "lastUpdate": "asas"});
-    }
+  }
+
+  getUsers(){
+    this.userService.getAll().subscribe(result => {
+      let userResult = result['payload'][0];
+      for(let user of userResult){
+        this.users.push(new User(user));
+      }
+    });
   }
 
 }
