@@ -1,3 +1,5 @@
+import { CredentialComponent } from './components/credential/credential.component';
+import { UserService } from './service/user.service';
 import { RoleService } from './service/role.service';
 import { LeftSideMenuComponent } from './components/left-side-menu/left-side-menu.component';
 import { HttpModule } from '@angular/http';
@@ -7,7 +9,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { HomeModule } from './components/home/home.module';
-
 import { LoginModule } from './components/login/login.module';
 import { RoleModule } from './components/role/role.module';
 import { UserModule } from './components/user/user.module';
@@ -24,17 +25,15 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HomeModule,
-    HttpClientModule,
-    HttpModule,
+    HomeModule,    HttpClientModule,    HttpModule,
     LoginModule, 
-    RoleModule, 
-    routing,
-    UserModule,
+    RoleModule,    routing,
+    UserModule
   ],
   providers: [
     AuthenticationService, 
-    RoleService
+    RoleService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

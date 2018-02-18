@@ -11,6 +11,7 @@ export class ApiUrls {
 
     /* register API*/
     register_base: string = this.base_url + "register/";
+    register_getAll: string = this.base_url + "register/GetAll";
 
     constructor() { }
 }

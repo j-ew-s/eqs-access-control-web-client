@@ -17,7 +17,7 @@ export class RoleFormComponent implements OnInit {
     private router: Router) {
 
     console.log(" ROLE FORM constructor");
-    this.role = new Role(new Object(), this.roleService);
+    this.role = new Role(new Object());
 
     this.form = this.formBuilder.group({
       id: [''],
@@ -36,7 +36,7 @@ export class RoleFormComponent implements OnInit {
       this.roleService.getById(this.roleId).subscribe(
         s => {
           let payload = s["payload"][0];
-          this.role = new Role(payload, this.roleService);
+          this.role = new Role(payload);
         }, e => {
           console.log("ERROR");
         }

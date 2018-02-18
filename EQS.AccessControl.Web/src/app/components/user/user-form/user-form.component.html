@@ -1,3 +1,33 @@
-<p>
-  user-form works!
-</p>
+<div class="col-md-5">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(item)">
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input [(ngModel)]="user.name" id="name" formControlName="name" type="text" class="form-control">
+      <div *ngIf="form.get('name').hasError('required')
+                            && form.get('name').touched ">
+        <div class="alert alert-danger">Field Name is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input [(ngModel)]="user.credential.username" name="username" formControlName="username" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="pass">Password</label>
+      <input [(ngModel)]="user.credential.password" name="pass" formControlName="password" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="passwordCofirm">confirm Password</label>
+      <input [(ngModel)]="user.credential.passwordCofirm" name="passwordCofirm" formControlName="passwordCofirm" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+      <button class="btn btn-danger" type="cancel" (click)="router.navigate(['user/'])">Cancel</button>
+    </div>
+  </form>
+</div>

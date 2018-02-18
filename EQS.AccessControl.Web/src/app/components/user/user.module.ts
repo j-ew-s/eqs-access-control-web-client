@@ -1,3 +1,5 @@
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -13,7 +15,10 @@ import { UserFormComponent } from './user-form/user-form.component';
   ],
   imports: [
     BrowserModule,
-    InfiniteScrollModule
+    CommonModule,
+    FormsModule, 
+    InfiniteScrollModule,
+    ReactiveFormsModule,
   ],
   providers: []
 })

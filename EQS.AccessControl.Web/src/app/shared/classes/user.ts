@@ -6,22 +6,16 @@ export class User extends BaseClass {
 
     constructor(obj: Object) {
         super();
-        this.id = obj["id"];
-        this.name = obj["name"];
-        this.credential = this.getCredentials(obj['credential']);
-        this.roles = this.getRoles(obj['roles']);
+        this.id = obj["id"] != undefined ?  obj["id"] : -1 ;
+        this.name =  obj["name"] != undefined ?  obj["name"] : "";
+        this.credential = obj["credential"] != undefined ? obj['credential'] : new Credential(new Object(0));
+        this.roles = obj["roles"] != undefined ? this.getRoles(obj['roles']) : [];
+
+        console.log("USEROBJ ", this);
     }
 
     roles: Role[] = [];
     credential: Credential[] = [];
-
-    getCredentials(credentialsObj: any[]): Credential[] {
-        let credentials: Credential[] = [];
-        for (let credential of credentialsObj) {
-            credentials.push(new Role(credential));
-        }
-        return credentials;
-    }
 
     getRoles(rolesObj: any[]): Role[] {
         let roles: Role[] = [];

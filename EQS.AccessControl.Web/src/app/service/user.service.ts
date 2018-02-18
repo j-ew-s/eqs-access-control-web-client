@@ -13,23 +13,23 @@ export class UserService {
   }
   
   getAll(): Observable<any[]> {
-    return this.http.get(this.apis.role_base)
+    return this.http.get(this.apis.register_getAll)
     .map(result => result.json());
   }
 
   getById(userId:number): Observable<any[]>{
-    return this.http.get(this.apis.role_base + userId.toString())
+    return this.http.get(this.apis.register_base + userId.toString())
     .map(result => result.json());
   }
 
   create(user : User): Observable<any[]>{
     console.log("SAVE ROLE >> ", user);
-    return this.http.post(this.apis.role_base, user)
+    return this.http.post(this.apis.register_base, user)
     .map(result => result.json());
   }
 
   update(user : User): Observable<any[]>{
-    return this.http.put(this.apis.role_base, user )
+    return this.http.put(this.apis.register_base, user )
     .map(result => result.json());
   }
 }
