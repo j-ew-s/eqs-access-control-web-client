@@ -13,8 +13,13 @@ import { TokenEnum } from './../shared/enum/tokenEnum';
 @Injectable()
 export class AuthenticationService {
   apis: ApiUrls;
+  areaPermissions: any[] = [];
   constructor(private http: Http, ) { 
     this.apis = new ApiUrls();
+    this.areaPermissions = [
+      { 'area': 'Users', 'permissions': ["Admin", "RH"] },
+      { 'area': 'Roles', 'permissions': ["Admin", "RH"] }
+    ];
   }
   
     login(credentials): Observable<any[]> {
@@ -32,11 +37,12 @@ export class AuthenticationService {
       localStorage.removeItem('token');
     }
   
-    isTokenNotExpired(){
-      return tokenNotExpired();
+    isTokenNotExpired(){   
+      return  tokenNotExpired();   
     }
   
     getCurrentUser(){
+      debugger;
       let token = localStorage.getItem('token');
   
       if(!token) return false;
@@ -50,6 +56,11 @@ export class AuthenticationService {
       if(!token) return false;
       let jwt = new JwtHelper().decodeToken(token);
       return jwt[TokenEnum.role];
+    }
+
+    isAdmin(){
+      let roles : any = this.getCurrentUserRoles();
+      return roles == "Admin";
     }
 
 }

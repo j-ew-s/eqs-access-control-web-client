@@ -1,3 +1,4 @@
+import { AuthAdmin } from './service/guard/auth-admin.service';
 import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { RoleService } from './service/role.service';
 
 import { AppComponent } from './app.component';
 import { LeftSideMenuComponent } from './components/left-side-menu/left-side-menu.component';
+import { AuthGuard } from './service/guard/auth-guard.service';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { LeftSideMenuComponent } from './components/left-side-menu/left-side-men
     UserModule
   ],
   providers: [
+    AuthAdmin,    
     AuthenticationService, 
+    AuthGuard,
     RoleService,
     UserService
   ],
