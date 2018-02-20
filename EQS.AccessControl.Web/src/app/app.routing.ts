@@ -1,3 +1,4 @@
+import { PreventLoseUnsavedChanges } from './service/deactivate/prevent-lose-unsaved.service';
 import { AuthAdmin } from './service/guard/auth-admin.service';
 import { AuthGuard } from './service/guard/auth-guard.service';
 import { RoleFormComponent } from './components/role/role-form/role-form.component';
@@ -15,10 +16,14 @@ export const routing = RouterModule.forRoot([
                                                 {path : 'user', component: UserListComponent, 
                                                 canActivate: [AuthGuard, AuthAdmin] },
                                                 {path : 'user/form/:id', component: UserFormComponent,
-                                                canActivate: [AuthGuard, AuthAdmin]  },
+                                                canActivate: [AuthGuard, AuthAdmin] ,
+                                                canDeactivate: [PreventLoseUnsavedChanges]
+                                             },
                                                 {path : 'role', component: RoleListComponent,
                                                 canActivate: [AuthGuard, AuthAdmin]  },
                                                 {path : 'role/form/:id', component: RoleFormComponent,
-                                                canActivate: [AuthGuard, AuthAdmin]  },
+                                                canActivate: [AuthGuard, AuthAdmin],
+                                                canDeactivate: [PreventLoseUnsavedChanges]
+                                             },
                                                 {path : '**',   component: HomeComponent}
                                             ]);

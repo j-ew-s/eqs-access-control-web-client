@@ -1,3 +1,8 @@
+import { BadInput } from './../../../shared/common/error/bad-input-error';
+import { NotFoundError } from './../../../shared/common/error/notfound-error';
+import { AppError } from './../../../shared/common/error/base/app-error';
+import { SuccessHandler } from './../../../service/handler/response/SucessHandler';
+import { BaseController } from './../../../shared/base-controller/base-controller.interface';
 import { RoleService } from './../../../service/role.service';
 import { Role } from './../../../shared/classes/role';
 import { User } from './../../../shared/classes/user';
@@ -12,7 +17,7 @@ import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
     templateUrl: './user-form.component.html',
     styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements BaseController, OnInit {
 
     public isSaveMethod = false;
     public form: FormGroup;
@@ -22,6 +27,7 @@ export class UserFormComponent implements OnInit {
 
     roles: number[];
     options: IMultiSelectOption[];
+    successHandler: SuccessHandler;
 
     public messageStyle: string;
     public message: string;
@@ -51,63 +57,92 @@ export class UserFormComponent implements OnInit {
         this.userId = this.route.snapshot.params['id'];
         this.roleService.getAll().subscribe(
             s => {
-                let roles = s['payload'][0];
-                let optionRoles : any[] = [];
+                this.successHandler = new SuccessHandler(s);
+                let roles;
+
+                if (!this.successHandler.error())
+                    roles = this.successHandler.payload()[0];
+                else
+                    this.form.setErrors(this.successHandler.messages);
+
+                let optionRoles: any[] = [];
                 for (let role of roles) {
-                   optionRoles.push(new Role(role));
+                    optionRoles.push(new Role(role));
                 }
                 this.options = optionRoles;
                 this.loadUser();
             }
+            , (error: AppError) => {
+                if (error instanceof NotFoundError)
+                    alert('No Role found');
+                else throw error;
+            }
         );
     }
 
-    loadUser(){
+    loadUser() {
         if (this.userId !== undefined && this.userId > 0) {
             this.isLoading = true;
             this.service.getById(this.userId).subscribe(
                 s => {
-                    let payload = s["payload"][0];
-                    this.user = new User(payload);
-                    this.roles = this.user.roles.map(function(item) {
-                        return item.id;
-                    });
+                    this.successHandler = new SuccessHandler(s);
+
+                    if (!this.successHandler.error())
+                        this.user = new User(this.successHandler.payload()[0]);
+                    else
+                        this.form.setErrors(this.successHandler.messages);
+
+                    this.roles = this.user.roles.map(function (item) { return item.id; });
                     this.isLoading = false;
-                }, e => {
-                    this.isLoading = false;
+                }, (error: AppError) => {
+                    if (error instanceof NotFoundError)
+                        alert('No Role found');
+                    else throw error;
                 }
             );
         }
     }
 
-    onChange() {   
-        
-     }
+    onChange() { }
 
     onSubmit() {
-        debugger;
+        this.isSaveMethod = true;
         this.user.roles = this.roles;
-        console.log("USER saving ", this.user);
+        if (this.user.id <= 0) {
+            this.create();
+        }
+        else {
+            this.update();
+        }
+    }
 
-          if (this.user.id <= 0) {
-              this.service.create(this.user).subscribe(
-                  s => {
-                      this.router.navigateByUrl('user')
-                  },
-                  e => {
-                      console.log("error ", e)
-                  }
-              );
-          }
-          else {
-              this.service.update(this.user).subscribe(
-                  s => {
-                      this.router.navigateByUrl('user')
-                  },
-                  e => {
-                      console.log("error ", e)
-                  }
-              );
-          }
+    create() {
+        this.service.create(this.user).subscribe(
+            success => { this.successSaveHandler(success) },
+            (error: AppError) => { this.errorSaveHandler(error) }
+        );
+    }
+
+    update() {
+        this.service.update(this.user).subscribe(
+            success => { this.successSaveHandler(success) },
+            (error: AppError) => { this.errorSaveHandler(error) }
+        );
+    }
+
+    private successSaveHandler(s) {
+        this.successHandler = new SuccessHandler(s);
+        if (!this.successHandler.error())
+            this.router.navigateByUrl('user');
+        else
+            this.form.setErrors(this.successHandler.messages());
+    }
+
+    private errorSaveHandler(error) {
+
+        if (error instanceof BadInput)
+            alert('No Role found');
+        else throw error;
+
     }
 }
