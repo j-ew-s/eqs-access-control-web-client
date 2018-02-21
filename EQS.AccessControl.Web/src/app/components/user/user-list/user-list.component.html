@@ -23,13 +23,15 @@
         <td>{{user.name}}</td>
         <td>{{user.credential.username}}</td>
         <td>
-          <a (click)="navigateToForm(user.id)">
-             <i class="glyphicon glyphicon-pencil" ></i>
-           </a>
-        </td>
-        <td>
-          <a><i class="glyphicon glyphicon-trash"></i></a>
-        </td>
+            <a (click)="navigateToForm(user.id)">
+               <i class="glyphicon glyphicon-pencil"></i>
+            </a>
+          </td>
+          <td>
+            <a (click)="deleteModal.Init(user)">
+               <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </td>
       </tr>
     </tbody>
   </table>

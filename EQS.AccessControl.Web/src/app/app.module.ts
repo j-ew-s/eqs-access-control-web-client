@@ -1,3 +1,4 @@
+import { DeleteModalComponent } from './shared/delete-modal/delete-modal.component';
 import { GlobalErrorHandler } from './service/handler/error/GlobalErrorHandler';
 import { AuthAdmin } from './service/guard/auth-admin.service';
 import { HttpModule } from '@angular/http';
@@ -21,6 +22,8 @@ import { AppComponent } from './app.component';
 import { LeftSideMenuComponent } from './components/left-side-menu/left-side-menu.component';
 import { AuthGuard } from './service/guard/auth-guard.service';
 import { PreventLoseUnsavedChanges } from './service/deactivate/prevent-lose-unsaved.service';
+import { DeleteModalModule } from './shared/delete-modal/delete-modal.module';
+
 
 @NgModule({
   declarations: [
@@ -41,8 +44,7 @@ import { PreventLoseUnsavedChanges } from './service/deactivate/prevent-lose-uns
     AuthGuard,
     PreventLoseUnsavedChanges,
     RoleService,
-    UserService
-   
+    UserService 
   ],
   bootstrap: [AppComponent]
 })

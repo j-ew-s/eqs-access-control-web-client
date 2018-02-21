@@ -1,9 +1,10 @@
+import { RoleDuplicateValidator } from './../../../shared/validator/role-duplicate-validatior';
 import { SuccessHandler } from './../../../service/handler/response/SucessHandler';
 import { BadInput } from './../../../shared/common/error/bad-input-error';
 import { NotFoundError } from './../../../shared/common/error/notfound-error';
 import { AppError } from './../../../shared/common/error/base/app-error';
 import { BaseController } from './../../../shared/base-controller/base-controller.interface';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Role } from './../../../shared/classes/role';
 import { RoleService } from './../../../service/role.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,12 +21,12 @@ export class RoleFormComponent implements BaseController, OnInit {
     private roleService: RoleService,
     private formBuilder: FormBuilder,
     private router: Router) {
-
+      
     this.role = new Role(new Object());
 
     this.form = this.formBuilder.group({
       id: [''],
-      name: ['']
+      name: ['', Validators.compose([Validators.required, RoleDuplicateValidator.shouldBeValid])]
     })
   }
 

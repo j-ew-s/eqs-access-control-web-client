@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 
 export class SpecificErrorHandler {
     handleError(error: Response) {
-        debugger;
         if (error.status === 400)
             return Observable.throw(new BadInput(error));
         if (error.status === 404)

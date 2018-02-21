@@ -42,7 +42,6 @@ export class AuthenticationService {
     }
   
     getCurrentUser(){
-      debugger;
       let token = localStorage.getItem('token');
   
       if(!token) return false;

@@ -1,7 +1,6 @@
 export class ApiResponse {
 
     constructor(obj: any) {
-        debugger;
         this.payload = obj["payload"] != undefined ? obj["payload"] : [];
         this.status = obj["status"] != undefined ? obj["status"] : "";
         this.resultLength = obj["resultLength"] != undefined ? obj["resultLength"] : 0;

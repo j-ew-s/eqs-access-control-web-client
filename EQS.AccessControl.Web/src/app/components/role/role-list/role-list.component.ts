@@ -20,7 +20,7 @@ export class RoleListComponent implements OnChanges {
 
   constructor(private roleService: RoleService, private router: Router) {
     this.searchObject = new SearchObject(new Object());
-    this.searchObject.itemQuantity = this.initial;
+    this.searchObject.itemQuantity = this.initial = 30;
     this.getRoles();
   }
 
@@ -31,14 +31,10 @@ export class RoleListComponent implements OnChanges {
     this.getRoles();
   }
 
-  search() {
-    this.getRoles();
-  }
-
   getRoles() {
-    debugger;
+
     this.searchObject.itemQuantity = this.initial;
-    this.searchObject.order= "";
+    this.searchObject.order = "";
     this.searchObject.textTerm = "";
 
     this.roleService.getAllFilter(this.searchObject).subscribe(result => {
@@ -60,6 +56,14 @@ export class RoleListComponent implements OnChanges {
   navigateToForm(roleId: number) {
     let route = "role/form/" + roleId.toString();
     this.router.navigateByUrl(route);
+  }
+
+  delete(item: any) {
+    this.roleService.delete(item["id"]).subscribe(result => {
+      this.successHandler = new SuccessHandler(result);
+      if (!this.successHandler.error())
+        this.getRoles();
+    });
   }
 
 }

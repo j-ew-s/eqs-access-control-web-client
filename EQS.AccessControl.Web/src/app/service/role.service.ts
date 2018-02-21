@@ -39,7 +39,6 @@ export class RoleService {
   }
 
   getAllFilter(searchObject : SearchObject): Observable<any[]>{
-    debugger;
     return this.http.post(this.apis.role_filterSearch, searchObject)
     .map(result => result.json())
     .catch(this.errorHandler.handleError);
@@ -55,6 +54,12 @@ export class RoleService {
     return this.http.put(this.apis.role_base, role)
       .map(result => result.json())
       .catch(this.errorHandler.handleError);
+  }
+
+  delete(roleId : number): Observable<any[]>{
+    return this.http.delete(this.apis.role_base + roleId)
+    .map(result => result.json())
+    .catch(this.errorHandler.handleError);
   }
 
 }

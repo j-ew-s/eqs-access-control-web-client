@@ -1,3 +1,4 @@
+import { SearchObject } from './../../../shared/classes/search-object';
 import { SuccessHandler } from './../../../service/handler/response/SucessHandler';
 import { Router } from '@angular/router';
 import { User } from './../../../shared/classes/user';
@@ -11,24 +12,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { 
+    this.searchObject = new SearchObject(new Object());
+    this.searchObject.itemQuantity = this.initial = 30;
+    this.getUsers();
+  }
 
-  initial = 0;
+  initial = 30;
   users: User[] = [];
   successHandler: SuccessHandler;
-
+  searchObject: SearchObject;
 
   ngOnInit() {
     this.getUsers();
   }
 
   onScroll() {
-    // add another 20 items
-    this.initial += 20;
+    this.initial += 30;
+    this.getUsers();
   }
 
   getUsers() {
-    this.userService.getAll().subscribe(result => {
+    this.searchObject.itemQuantity = this.initial;
+    this.searchObject.order = "";
+    this.searchObject.textTerm = "";
+
+    this.userService.getAllFilter(this.searchObject).subscribe(result => {
      
       let userResult;
       this.successHandler = new SuccessHandler(result);
@@ -46,6 +55,14 @@ export class UserListComponent implements OnInit {
   navigateToForm(user: number) {
     let route = "user/form/" + user.toString();
     this.router.navigateByUrl(route);
+  }
+
+  delete(item: any) {
+    this.userService.delete(item["id"]).subscribe(result => {
+      this.successHandler = new SuccessHandler(result);
+      if (!this.successHandler.error())
+        this.getUsers();
+    });
   }
 
 }

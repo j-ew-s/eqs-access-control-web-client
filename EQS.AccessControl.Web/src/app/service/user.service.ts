@@ -50,4 +50,10 @@ export class UserService {
     .map(result => result.json())
     .catch(this.errorHandler.handleError);
   }
+
+  delete(roleId : number): Observable<any[]>{
+    return this.http.delete(this.apis.register_base + roleId)
+    .map(result => result.json())
+    .catch(this.errorHandler.handleError);
+  }
 }

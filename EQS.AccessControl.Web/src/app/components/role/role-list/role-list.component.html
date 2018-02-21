@@ -35,15 +35,16 @@
         </td>
         <td>
           <a (click)="navigateToForm(role.id)">
-                  <i class="glyphicon glyphicon-pencil" ></i>
-                </a>
+             <i class="glyphicon glyphicon-pencil"></i>
+          </a>
         </td>
         <td>
-          <a>
-                  <i class="glyphicon glyphicon-trash"></i>
-                </a>
+          <a (click)="deleteModal.Init(role)">
+             <i class="glyphicon glyphicon-trash"></i>
+          </a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+<app-delete-modal #deleteModal (deleteEmitter)="delete($event)" ></app-delete-modal>
