@@ -8,7 +8,7 @@ A aplicação deve obrigar o user a fazer login e após o login ser efetuado, o 
 
 A página principal deve ter um side menu com dois items, user e roles.
 A área Roles deve conter o atributo id e o nome da role. 
-A área User deve conter o id, nome, login, passworde as roles associadas.
+A área User deve conter o id, nome, login, password e as roles associadas.
 
 Ao clicar no item do menu, a página deve levar o utilizador para uma listagem. Na listagem é possível clicar num elemento e editá-lo, apagá-lo ou adicionar um novo.
 
