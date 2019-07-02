@@ -1,6 +1,7 @@
 # Projeto API EQS
 
-Este projeto é parte do teste apresentado pela EQS. A primeira parte é um projeto de API utilizando .Net Core 2.0 e pode ser encontrado neste [Link](https://github.com/j-ew-s/eqs-access-control-api).
+Projecto utilizado para avaliação da UnoDigital (eqs-global). Para fins de registro existe um projeto de API utilizando .Net Core 2.0 e pode ser encontrado neste [Link](https://github.com/j-ew-s/eqs-access-control-api).
+
 
 ### Tecnologias utilizadas 
 * Angular (5.2)
