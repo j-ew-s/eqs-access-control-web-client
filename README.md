@@ -2,7 +2,7 @@
 
 Projecto utilizado para avaliação da UnoDigital (eqs-global). Para fins de registro existe um projeto de API utilizando .Net Core 2.0 e pode ser encontrado neste [Link](https://github.com/j-ew-s/eqs-access-control-api).
 
-This Project is in use for positions  at UnoDigital (eqs-global). There is another project API project in .Net Core 2.0 that can be found in [Link](https://github.com/j-ew-s/eqs-access-control-api).
+This Project is in use for positions  at UnoDigital (eqs-global). There is another project API project in .Net Core 2.0 that can be found in this [Link](https://github.com/j-ew-s/eqs-access-control-api).
 
 
 ### Tecnologias utilizadas / Tech stack
